@@ -2,6 +2,8 @@
 
 Fastjson 自定义反序列化报错，“not close json text, token : }”，异常类似 [1.2.62 自定义反序列化报错 not close json text, token : }](https://github.com/alibaba/fastjson/issues/2848)
 
+PS: 由于 Fastjson 1.x 仓库已归档，无法评论，故在此记录。
+
 有两种报错信息，取决于自定义字段在 json 中的位置：
 
 * `not close json text, token : }`
@@ -13,7 +15,7 @@ Fastjson 自定义反序列化报错，“not close json text, token : }”，�
   { "stages": {}, "other": "" }
   ```
 
-PS: 由于仓库已归档，无法评论，故在此记录。
+以下代码报错的原因是 `deserialze(...)` 方法虽然返回了期望的 `List<Stage>` 结果，但是没有正确更新 json 解析偏移量。
 
 ```java
 public class RuleDeserializable implements ObjectDeserializer {
@@ -27,8 +29,6 @@ public class RuleDeserializable implements ObjectDeserializer {
     }
 }
 ```
-
-以上代码报错的原因是 `deserialze(...)` 方法虽然返回了期望的 `List<Stage>` 结果，但是没有正确更新 json 解析偏移量。
 
 应该调用 `DefaultJSONParser#parseXXX` 方法更新 json 解析偏移量。
 
