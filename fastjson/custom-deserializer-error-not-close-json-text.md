@@ -2,6 +2,17 @@
 
 Fastjson 自定义反序列化报错，“not close json text, token : }”，异常类似 [1.2.62 自定义反序列化报错 not close json text, token : }](https://github.com/alibaba/fastjson/issues/2848)
 
+有两种报错信息，取决于自定义字段在 json 中的位置：
+
+* `not close json text, token : }`
+  ```json
+  { "stages": {} }
+  ```
+* `not close json text, token : ,`
+  ```json
+  { "stages": {}, "other": "" }
+  ```
+
 PS: 由于仓库已归档，无法评论，故在此记录。
 
 ```java
